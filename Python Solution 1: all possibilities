@@ -1,0 +1,22 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        ans = []
+        def isValid(parens):
+            stack = []
+            for char in parens:
+                if char == '(':
+                    stack.append(char)
+                else: 
+                    if not stack or stack[-1] != '(':
+                        return False
+                    stack.pop()
+            return not stack 
+        def helper(current, count):
+            if count == 2 * n:
+                if isValid(current):
+                    ans.append(current)
+                return  
+            helper(current + '(', count + 1)
+            helper(current + ')', count + 1)
+        helper("", 0)
+        return ans
